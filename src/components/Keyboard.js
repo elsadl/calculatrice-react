@@ -23,7 +23,6 @@ const Keyboard = () => {
   };
 
   useEffect(() => {
-    console.log(watchedKeys);
     document.addEventListener("keydown", handleKeyDown, false);
     return () => {
       document.removeEventListener("keydown", handleKeyDown, false);
