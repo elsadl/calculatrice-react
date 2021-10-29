@@ -44,7 +44,7 @@ const Calculator = () => {
   }, []);
 
   return (
-    <div>
+    <div className="calculatrice">
       <input
         style={{ textAlign: "right" }}
         type="text"
@@ -52,7 +52,7 @@ const Calculator = () => {
         value={screen}
       ></input>
 
-      <div className="clavier">
+      <div>
         {[...Array(10).keys()].map((_, i) => (
           <button
             onClick={(e) => dispatch(addDigit({ value: e.target.value }))}
@@ -64,6 +64,16 @@ const Calculator = () => {
           </button>
         ))}
 
+        <button
+          id="equal"
+          title="equal"
+          onClick={(e) => dispatch(getResult())}
+        >
+          =
+        </button>
+      </div>
+
+      <div>
         {operators.map((operator, i) => (
           <button
             onClick={(e) => dispatch(addOperator({ operator: e.target.value }))}
@@ -74,10 +84,6 @@ const Calculator = () => {
             {operator.symbol}
           </button>
         ))}
-
-        <button title="equal" onClick={(e) => dispatch(getResult())}>
-          =
-        </button>
       </div>
     </div>
   );

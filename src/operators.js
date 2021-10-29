@@ -14,4 +14,9 @@ export const operators = [
     name: "multiplication",
     value: "*",
   },
+  {
+    symbol: "%",
+    name: "division",
+    value: "/",
+  },
 ];
