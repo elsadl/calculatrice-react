@@ -27,10 +27,10 @@ const reducer = (state = stateInit, action = {}) => {
         number: "",
       };
     case EQUAL:
-      // ici calculer le résultat
       const operation = [...state.operation, Number(state.number)]
         .toString()
         .replaceAll(",", "");
+      // eslint-disable-next-line no-eval
       const result = eval(operation);
 
       return {
