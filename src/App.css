@@ -10,7 +10,9 @@
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-gap: 0.4em;
+  padding: 0.4em;
   max-width: 300px;
+  border: 1px solid #fca3b3;
 }
 
 .calculatrice input {
