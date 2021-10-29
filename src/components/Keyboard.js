@@ -46,7 +46,7 @@ const Keyboard = () => {
         <Button
           id="equal"
           title="equal"
-          onClick={(e) => sendUpdate(equal, e.target.value)}
+          onClick={(e) => sendUpdate(equal)}
         >
           =
         </Button>
