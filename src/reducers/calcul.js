@@ -9,7 +9,9 @@ const stateInit = {
 
 const reducer = (state = stateInit, action = {}) => {
   console.log(action);
+
   switch (action.type) {
+      
     case NUMBER:
       const { value } = action.payload;
       const newNumber = state.number + value;
@@ -18,6 +20,7 @@ const reducer = (state = stateInit, action = {}) => {
         number: newNumber,
         screen: newNumber,
       };
+
     case OPERATOR:
       const { operator } = action.payload;
       return {
@@ -26,13 +29,13 @@ const reducer = (state = stateInit, action = {}) => {
         screen: operator,
         number: "",
       };
+
     case EQUAL:
       const operation = [...state.operation, Number(state.number)]
         .toString()
         .replaceAll(",", "");
       // eslint-disable-next-line no-eval
       const result = eval(operation);
-
       return {
         operation: [],
         number: "",
