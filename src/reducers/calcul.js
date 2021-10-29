@@ -1,19 +1,19 @@
-import { NUMBER, OPERATOR, EQUAL } from "../constants/actions";
+import { operation, digit, equal } from "../constants/types";
 
 const stateInit = {
   number: "",
-  operation: [],
+  calculation: [],
   result: null,
   screen: "",
 };
 
 const reducer = (state = stateInit, action = {}) => {
-  console.log(action);
 
-  switch (action.type) {
-      
-    case NUMBER:
-      const { value } = action.payload;
+  const { type, value } = action;
+
+  switch (type) {
+    
+    case digit:
       const newNumber = state.number + value;
       return {
         ...state,
@@ -21,24 +21,23 @@ const reducer = (state = stateInit, action = {}) => {
         screen: newNumber,
       };
 
-    case OPERATOR:
-      const { operator } = action.payload;
+    case operation:
       return {
         ...state,
-        operation: [...state.operation, Number(state.number), operator],
-        screen: operator,
+        calculation: [...state.calculation, Number(state.number), value],
+        screen: value,
         number: "",
       };
 
-    case EQUAL:
-      const operation = [...state.operation, Number(state.number)]
+    case equal:
+      const calculation = [...state.calculation, Number(state.number)]
         .toString()
         .replaceAll(",", "");
       // eslint-disable-next-line no-eval
-      const result = eval(operation);
+      const result = eval(calculation);
       return {
-        operation: [],
         number: "",
+        calculation: [],
         result: result,
         screen: result,
       };

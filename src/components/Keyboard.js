@@ -1,44 +1,29 @@
-import { operators } from "../operators";
+import { operators } from "../constants/operators";
+import { watchedKeys } from "../constants/watchedKeys";
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { addDigit, addOperator, getResult } from "../actions/actions-types";
+import { digit, operation, equal } from "../constants/types";
 
 import Button from "../styles/Button";
 
 const Keyboard = () => {
   const dispatch = useDispatch();
 
-  let watchedKeys = [];
+  const sendUpdate = (type, value) => {
+    dispatch({ type, value });
+  };
 
   const handleKeyDown = (e) => {
     if (watchedKeys.map((el) => el.value).includes(e.key)) {
       const keyPressed = watchedKeys.find((el) => el.value === e.key);
-      switch (keyPressed.type) {
-        case "digit":
-          dispatch(addDigit({ value: keyPressed.value }));
-          break;
-        case "operator":
-          dispatch(addOperator({ operator: keyPressed.value }));
-          break;
-        case "equal":
-          dispatch(getResult());
-          break;
-        default:
-          return;
-      }
+      sendUpdate(keyPressed.type, keyPressed.value);
     }
   };
 
   useEffect(() => {
-    for (let i = 0; i < 10; i++) {
-      watchedKeys.push({ value: i.toString(), type: "digit" });
-    }
-    for (const operator of operators) {
-      watchedKeys.push({ value: operator.value, type: "operator" });
-    }
-    watchedKeys.push({ value: "=", type: "equal" });
+    console.log(watchedKeys);
     document.addEventListener("keydown", handleKeyDown, false);
     return () => {
       document.removeEventListener("keydown", handleKeyDown, false);
@@ -50,7 +35,7 @@ const Keyboard = () => {
       <div>
         {[...Array(10).keys()].map((_, i) => (
           <Button
-            onClick={(e) => dispatch(addDigit({ value: e.target.value }))}
+            onClick={(e) => sendUpdate(digit, e.target.value)}
             key={i}
             value={i}
             title={i}
@@ -59,7 +44,11 @@ const Keyboard = () => {
           </Button>
         ))}
 
-        <Button id="equal" title="equal" onClick={(e) => dispatch(getResult())}>
+        <Button
+          id="equal"
+          title="equal"
+          onClick={(e) => sendUpdate(equal, e.target.value)}
+        >
           =
         </Button>
       </div>
@@ -67,7 +56,7 @@ const Keyboard = () => {
       <div>
         {operators.map((operator, i) => (
           <Button
-            onClick={(e) => dispatch(addOperator({ operator: e.target.value }))}
+            onClick={(e) => sendUpdate(operation, e.target.value)}
             key={i}
             value={operator.value}
             title={operator.name}
