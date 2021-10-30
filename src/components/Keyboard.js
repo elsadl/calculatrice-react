@@ -36,10 +36,10 @@ const Keyboard = () => {
           <Button
             onClick={(e) => sendUpdate(digit, e.target.value)}
             key={i}
-            value={i}
-            title={i}
+            value={9 - i}
+            title={9 - i}
           >
-            {i}
+            {9 - i}
           </Button>
         ))}
 

@@ -29,6 +29,7 @@
 
 .calculatrice div:first-of-type {
   display: grid;
+  direction: rtl;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 0.4em;
 }
@@ -40,5 +41,6 @@
 }
 
 #equal {
-  grid-column: 2/4;
+  grid-column: 1/3;
+  grid-row: 4;
 }
